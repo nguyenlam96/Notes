@@ -23,6 +23,10 @@
 		05DA04DD22140DBB004545D6 /* NoteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05DA04DC22140DBB004545D6 /* NoteCell.swift */; };
 		05DA04E022141A70004545D6 /* Note.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05DA04DF22141A70004545D6 /* Note.swift */; };
 		05DA04E2221420E1004545D6 /* EditNoteVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05DA04E1221420E1004545D6 /* EditNoteVC.swift */; };
+		05DA04E422154791004545D6 /* Category.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 05DA04E322154791004545D6 /* Category.storyboard */; };
+		05DA04E822154BA6004545D6 /* CategoryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05DA04E722154BA6004545D6 /* CategoryVC.swift */; };
+		05DA04EA22154BB7004545D6 /* AddCategoryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05DA04E922154BB7004545D6 /* AddCategoryVC.swift */; };
+		05DA04EC22154BCC004545D6 /* EditCategoryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05DA04EB22154BCC004545D6 /* EditCategoryVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,6 +69,10 @@
 		05DA04DC22140DBB004545D6 /* NoteCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteCell.swift; sourceTree = "<group>"; };
 		05DA04DF22141A70004545D6 /* Note.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Note.swift; sourceTree = "<group>"; };
 		05DA04E1221420E1004545D6 /* EditNoteVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditNoteVC.swift; sourceTree = "<group>"; };
+		05DA04E322154791004545D6 /* Category.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Category.storyboard; sourceTree = "<group>"; };
+		05DA04E722154BA6004545D6 /* CategoryVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryVC.swift; sourceTree = "<group>"; };
+		05DA04E922154BB7004545D6 /* AddCategoryVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCategoryVC.swift; sourceTree = "<group>"; };
+		05DA04EB22154BCC004545D6 /* EditCategoryVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditCategoryVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -165,9 +173,8 @@
 		05DA04CA2213C48C004545D6 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				05DA04992213C3E3004545D6 /* NoteVC.swift */,
-				05DA04D52213FBD8004545D6 /* AddNoteVC.swift */,
-				05DA04E1221420E1004545D6 /* EditNoteVC.swift */,
+				05DA04E622154B9A004545D6 /* Category */,
+				05DA04E522154B8F004545D6 /* Note */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -176,6 +183,7 @@
 			isa = PBXGroup;
 			children = (
 				05DA049B2213C3E3004545D6 /* Main.storyboard */,
+				05DA04E322154791004545D6 /* Category.storyboard */,
 				05DA04A32213C3E5004545D6 /* LaunchScreen.storyboard */,
 			);
 			path = Storyboards;
@@ -230,6 +238,26 @@
 				05DA04DF22141A70004545D6 /* Note.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		05DA04E522154B8F004545D6 /* Note */ = {
+			isa = PBXGroup;
+			children = (
+				05DA04992213C3E3004545D6 /* NoteVC.swift */,
+				05DA04D52213FBD8004545D6 /* AddNoteVC.swift */,
+				05DA04E1221420E1004545D6 /* EditNoteVC.swift */,
+			);
+			path = Note;
+			sourceTree = "<group>";
+		};
+		05DA04E622154B9A004545D6 /* Category */ = {
+			isa = PBXGroup;
+			children = (
+				05DA04E722154BA6004545D6 /* CategoryVC.swift */,
+				05DA04E922154BB7004545D6 /* AddCategoryVC.swift */,
+				05DA04EB22154BCC004545D6 /* EditCategoryVC.swift */,
+			);
+			path = Category;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -336,6 +364,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				05DA04E422154791004545D6 /* Category.storyboard in Resources */,
 				05DA04A52213C3E5004545D6 /* LaunchScreen.storyboard in Resources */,
 				05DA04A22213C3E5004545D6 /* Assets.xcassets in Resources */,
 				05DA049D2213C3E3004545D6 /* Main.storyboard in Resources */,
@@ -369,11 +398,14 @@
 				05DA04DA2214005A004545D6 /* Extensions.swift in Sources */,
 				05DA04E2221420E1004545D6 /* EditNoteVC.swift in Sources */,
 				05DA04D82213FD8F004545D6 /* Helper.swift in Sources */,
+				05DA04E822154BA6004545D6 /* CategoryVC.swift in Sources */,
 				05DA04E022141A70004545D6 /* Note.swift in Sources */,
+				05DA04EC22154BCC004545D6 /* EditCategoryVC.swift in Sources */,
 				05DA04A02213C3E3004545D6 /* Notes.xcdatamodeld in Sources */,
 				05DA04DD22140DBB004545D6 /* NoteCell.swift in Sources */,
 				05DA04CF2213C534004545D6 /* CoreDataManager.swift in Sources */,
 				05DA04982213C3E3004545D6 /* AppDelegate.swift in Sources */,
+				05DA04EA22154BB7004545D6 /* AddCategoryVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

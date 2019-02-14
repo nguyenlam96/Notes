@@ -45,7 +45,26 @@ class EditNoteVC: UIViewController {
         self.note?.updatedAt = Date()
         self.note?.title = editedTitle
         self.note?.content = self.contentTextView.text
+        /* update newNote to persistentStore will be executed when the app's going to be terminated or go to the background (using notification) */
+    }
+    
+    // MARK: Navigation:
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
+        guard let identifier = segue.identifier else {
+            LogUtils.LogDebug(type: .error, message: "identifier not found")
+            return
+        }
+        switch identifier {
+        case "gotoCategoryVC":
+            guard let desVC = segue.destination as? CategoryVC else {
+                LogUtils.LogDebug(type: .error, message: "desVC not found")
+                return
+            }
+            desVC.note = self.note
+        default:
+            break
+        }
     }
     
     // MARK: - Helper Functions:
