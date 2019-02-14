@@ -12,11 +12,7 @@ import CoreData
 class AddNoteVC: UIViewController {
     
     // MARK: - Properties:
-    var managedObjectContext: NSManagedObjectContext? {
-        didSet {
-            LogUtils.LogDebug(type: .info, message: "\(String(describing: managedObjectContext?.description))")
-        }
-    }
+    var managedObjectContext: NSManagedObjectContext?
     
     // MARK: - IBOutlet:
     @IBOutlet weak var titleTextField: UITextField!
@@ -32,7 +28,7 @@ class AddNoteVC: UIViewController {
         print("=== AddNoteVC is deinit")
     }
     
-    // MARK: - Private Funcs:
+    // MARK: - Setup When ViewDidLoad:
     @objc func save() {
         
         // ensure having managedObjectContext:
@@ -58,11 +54,5 @@ class AddNoteVC: UIViewController {
         
     }
 
-    
-    // MARK: - Navigation
-
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
-    }
 
 }

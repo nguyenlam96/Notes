@@ -27,6 +27,8 @@
 		05DA04E822154BA6004545D6 /* CategoryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05DA04E722154BA6004545D6 /* CategoryVC.swift */; };
 		05DA04EA22154BB7004545D6 /* AddCategoryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05DA04E922154BB7004545D6 /* AddCategoryVC.swift */; };
 		05DA04EC22154BCC004545D6 /* EditCategoryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05DA04EB22154BCC004545D6 /* EditCategoryVC.swift */; };
+		05DA04EE2215584E004545D6 /* CategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05DA04ED2215584E004545D6 /* CategoryCell.swift */; };
+		05E98AD62215C23D002FBDE4 /* ColorPickerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05E98AD52215C23D002FBDE4 /* ColorPickerVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,6 +75,8 @@
 		05DA04E722154BA6004545D6 /* CategoryVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryVC.swift; sourceTree = "<group>"; };
 		05DA04E922154BB7004545D6 /* AddCategoryVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCategoryVC.swift; sourceTree = "<group>"; };
 		05DA04EB22154BCC004545D6 /* EditCategoryVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditCategoryVC.swift; sourceTree = "<group>"; };
+		05DA04ED2215584E004545D6 /* CategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCell.swift; sourceTree = "<group>"; };
+		05E98AD52215C23D002FBDE4 /* ColorPickerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPickerVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -228,6 +232,7 @@
 			isa = PBXGroup;
 			children = (
 				05DA04DC22140DBB004545D6 /* NoteCell.swift */,
+				05DA04ED2215584E004545D6 /* CategoryCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -256,6 +261,7 @@
 				05DA04E722154BA6004545D6 /* CategoryVC.swift */,
 				05DA04E922154BB7004545D6 /* AddCategoryVC.swift */,
 				05DA04EB22154BCC004545D6 /* EditCategoryVC.swift */,
+				05E98AD52215C23D002FBDE4 /* ColorPickerVC.swift */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -396,6 +402,7 @@
 				05DA04D32213D25B004545D6 /* LogUtils.swift in Sources */,
 				05DA049A2213C3E3004545D6 /* NoteVC.swift in Sources */,
 				05DA04DA2214005A004545D6 /* Extensions.swift in Sources */,
+				05E98AD62215C23D002FBDE4 /* ColorPickerVC.swift in Sources */,
 				05DA04E2221420E1004545D6 /* EditNoteVC.swift in Sources */,
 				05DA04D82213FD8F004545D6 /* Helper.swift in Sources */,
 				05DA04E822154BA6004545D6 /* CategoryVC.swift in Sources */,
@@ -406,6 +413,7 @@
 				05DA04CF2213C534004545D6 /* CoreDataManager.swift in Sources */,
 				05DA04982213C3E3004545D6 /* AppDelegate.swift in Sources */,
 				05DA04EA22154BB7004545D6 /* AddCategoryVC.swift in Sources */,
+				05DA04EE2215584E004545D6 /* CategoryCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

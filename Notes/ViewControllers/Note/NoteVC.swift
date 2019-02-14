@@ -25,11 +25,11 @@ class NoteVC: UIViewController {
         return fetchedResultsController
     }()
     
-    private var notes: [Note]? {
-        didSet {
-            updateTableView()
-        }
-    }
+//    private var notes: [Note]? {
+//        didSet {
+//            updateTableView()
+//        }
+//    }
     
     private var hasNotes: Bool {
 //        guard self.notes != nil else {
@@ -89,6 +89,7 @@ class NoteVC: UIViewController {
         }
     }
     
+    /*
     private func setupNotificationHandling() {
         // this notification is used to update tableView
         NotificationCenter.default.addObserver(self, selector: #selector(managedObjectContextDidChange(notification:)),
@@ -152,7 +153,7 @@ class NoteVC: UIViewController {
             LogUtils.LogDebug(type: .info, message: "=== TableView has updated!")
         }
     }
-    
+    */
     // MARK: - IBAction:
     @IBAction func editButtonPressed(_ sender: UIBarButtonItem) {
         
@@ -179,12 +180,8 @@ class NoteVC: UIViewController {
                 LogUtils.LogDebug(type: .error, message: "desVC is nil")
                 return
             }
-//            guard let indexPath = tableView.indexPathForSelectedRow, let note = self.notes?[indexPath.row] else {
-//                LogUtils.LogDebug(type: .error, message: "Can't get the note at indexPath")
-//                return
-//            }
             guard let indexPath = tableView.indexPathForSelectedRow else {
-                LogUtils.LogDebug(type: .error, message: "this indexPath is nil")
+                LogUtils.LogDebug(type: .error, message: "indexPath is nil")
                 return
             }
             let note = self.fetchedResultsController.object(at: indexPath)
@@ -208,12 +205,12 @@ extension NoteVC: UITableViewDataSource, UITableViewDelegate {
     // MARK: - TableView Datasource:
     
     func numberOfSections(in tableView: UITableView) -> Int {
-//        return hasNotes ? 1 : 0
-        guard let section = self.fetchedResultsController.sections else {
+
+        guard let sections = self.fetchedResultsController.sections else {
             LogUtils.LogDebug(type: .error, message: "fetchedResultsController.section is nil")
             return 0
         }
-        return section.count
+        return sections.count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

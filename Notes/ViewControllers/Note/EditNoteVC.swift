@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 class EditNoteVC: UIViewController {
     
@@ -16,9 +17,13 @@ class EditNoteVC: UIViewController {
             LogUtils.LogDebug(type: .info, message: "Load note successfully")
         }
     }
+    private var currentTitleValue = ""
+    private var currentContentValue = ""
+    private var currentCategoryValue = ""
     // MARK: - IBOutlet:
-    @IBOutlet weak var titleLabel: UITextField!
+    @IBOutlet weak var titleTextField: UITextField!
     @IBOutlet weak var contentTextView: UITextView!
+    @IBOutlet weak var categoryLabel: UILabel!
     
     
     // MARK: - ViewLifeCycle:
@@ -27,6 +32,7 @@ class EditNoteVC: UIViewController {
 
         self.title = "Edit Note"
         self.setupView()
+        self.setupNotificationHandling()
     }
     deinit {
         print("=== EditNoteVC is deinit")
@@ -34,18 +40,56 @@ class EditNoteVC: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(true)
-    // update data at the moment view disappear:
-        
-        // ensure title is not empty
-        guard let editedTitle = self.titleLabel.text, !editedTitle.isEmpty else {
+    
+        // update data at the moment view disappear:
+        guard let editedTitle = self.titleTextField.text, !editedTitle.isEmpty else {
             showAlert(title: "Title is empty", message: "Please enter the title")
             return
         }
-        // update note:
+        let editedContent = self.contentTextView.text
+        guard (editedTitle != self.currentTitleValue) || (editedContent != self.currentContentValue) else {
+            LogUtils.LogDebug(type: .info, message: "Title and Content didn't change")
+            return
+        }
+        // if there's real changes, update note:
         self.note?.updatedAt = Date()
         self.note?.title = editedTitle
         self.note?.content = self.contentTextView.text
         /* update newNote to persistentStore will be executed when the app's going to be terminated or go to the background (using notification) */
+    }
+    
+    // MARK: - Setup When ViewDidLoad:
+    private func setupNotificationHandling() {
+        NotificationCenter.default.addObserver(self, selector: #selector(handleManagedObjectContextDidChange(notification:)),
+                                               name: .NSManagedObjectContextObjectsDidChange,
+                                               object: self.note?.managedObjectContext)
+    }
+
+    @objc func handleManagedObjectContextDidChange(notification: Notification) {
+        LogUtils.LogDebug(type: .info, message: "\(#function) get called")
+        // update category for current note:
+        guard let userInfo = notification.userInfo else {
+            LogUtils.LogDebug(type: .warning, message: "UserInfo is nil")
+            return
+        }
+        // ensure there're some changes happen:
+        guard let updatedCategory = userInfo[NSUpdatedObjectsKey] as? Set<NSManagedObject> else {
+            LogUtils.LogDebug(type: .info, message: "nothing to update")
+            return
+        }
+        // ensure the current note's category is updated
+        var isUpdatedCategory = false
+        for ( _ , updatedCategory) in updatedCategory.enumerated() {
+            if updatedCategory == self.note?.category {
+                isUpdatedCategory = true
+            }
+        }
+
+        if isUpdatedCategory  {
+            LogUtils.LogDebug(type: .info, message: "updateCategoryLabel get called")
+            self.updateCategoryLabel()
+        }
+
     }
     
     // MARK: Navigation:
@@ -58,7 +102,7 @@ class EditNoteVC: UIViewController {
         switch identifier {
         case "gotoCategoryVC":
             guard let desVC = segue.destination as? CategoryVC else {
-                LogUtils.LogDebug(type: .error, message: "desVC not found")
+                LogUtils.LogDebug(type: .error, message: "CategoryVC not found")
                 return
             }
             desVC.note = self.note
@@ -72,16 +116,23 @@ class EditNoteVC: UIViewController {
         
         setupTitleTextField()
         setupContentTextView()
+        updateCategoryLabel()
+    }
+    
+    private func updateCategoryLabel() {
+        self.categoryLabel.text = note?.category?.name ?? "null"
     }
     
     private func setupTitleTextField() {
         
-        self.titleLabel.text = self.note?.title
+        self.titleTextField.text = self.note?.title
+        self.currentTitleValue = (self.note?.title!)!
     }
     
     private func setupContentTextView() {
         
         self.contentTextView.text = self.note?.content
+        self.currentContentValue = (self.note?.content)!
     }
     
     

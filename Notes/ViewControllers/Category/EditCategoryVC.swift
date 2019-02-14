@@ -13,22 +13,48 @@ class EditCategoryVC: UIViewController {
     
     // MARK: - Properties:
     var managedObjectContext: NSManagedObjectContext?
-
+    var category: Category?
+    private var currentCategoryName = ""
+    
+    // MARK: - Properties:
+    @IBOutlet weak var categoryNameTextField: UITextField!
+    
+    // MARK: - ViewLifeCycle:
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        self.title = "Edit Category"
+        self.setupView()
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    override func viewWillDisappear(_ animated: Bool) {
+        
+        guard let _ = self.managedObjectContext else {
+            LogUtils.LogDebug(type: .error, message: "managedObjectConText is nil")
+            return
+        }
+        guard let category = self.category else {
+            LogUtils.LogDebug(type: .error, message: "category is nil")
+            return
+        }
+        guard let editedName = self.categoryNameTextField.text, (editedName != self.currentCategoryName) else {
+            LogUtils.LogDebug(type: .error, message: "There's nothing changes")
+            return
+        }
+        // do change:
+        category.name = editedName
+        /* save updatedCategory to persistentStore will be executed when the app's going to be terminated or go to the background (using notification) */
     }
-    */
+    
+    deinit {
+        print("EditCategoryVC is deinit")
+    }
+
+    // MARK: - Setup When ViewDidLoad:
+    private func setupView() {
+        self.categoryNameTextField.text = self.category?.name
+        self.currentCategoryName = (self.category?.name)!
+    }
+    
 
 }
