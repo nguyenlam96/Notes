@@ -18,7 +18,7 @@ class EditCategoryVC: UIViewController {
     private var currentColor: UIColor?
     
     // MARK: - Properties:
-    @IBOutlet weak var categoryNameTextField: UITextField!
+     @IBOutlet weak var categoryNameTextField: UITextField!
      @IBOutlet weak var colorView: UIButton!
     // MARK: - ViewLifeCycle:
     override func viewDidLoad() {
@@ -40,10 +40,11 @@ class EditCategoryVC: UIViewController {
         }
         let editedName = self.categoryNameTextField.text
         let editedColor = self.colorView.backgroundColor
-//        guard let editedName = self.categoryNameTextField.text, (editedName != self.currentCategoryName) else {
-//            LogUtils.LogDebug(type: .info, message: "There's nothing changes")
-//            return
-//        }
+
+        guard !editedName!.isEmpty else {
+            LogUtils.LogDebug(type: .warning, message: "EditedName is empty!")
+            return
+        }
         guard (editedName != self.currentCategoryName) || (editedColor != self.currentColor) else {
             LogUtils.LogDebug(type: .info, message: "There's nothing changes")
             return
@@ -51,8 +52,7 @@ class EditCategoryVC: UIViewController {
         // do change:
         LogUtils.LogDebug(type: .info, message: "Update Category")
         category.name = editedName
-//        category.color = editedColor // color is already updated at  controller(_ controller: ColorPickerVC, didPick color: UIColor)
-        /* save updatedCategory to persistentStore will be executed when the app's going to be terminated or go to the background (using notification) */
+        /// category.color = editedColor --> color is already updated at  controller(_ controller: ColorPickerVC, didPick color: UIColor) 
     }
     
     deinit {

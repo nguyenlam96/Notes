@@ -73,7 +73,7 @@ class NoteVC: UIViewController {
     
     @objc func handleNotiDashLineColorChanged(notification: Notification) {
         LogUtils.LogDebug(type: .info, message: "\(#function) get called")
-        // update category for current note:
+
         guard let userInfo = notification.userInfo else {
             LogUtils.LogDebug(type: .warning, message: "UserInfo is nil")
             return
@@ -82,7 +82,7 @@ class NoteVC: UIViewController {
             LogUtils.LogDebug(type: .info, message: "Can't find the category updated")
             return
         }
-        // ensure the current note's category is updated
+
         var shouldUpdateDashLine = false
         var willUpdateNotes:[Note] = []
         
@@ -97,6 +97,7 @@ class NoteVC: UIViewController {
             }
         }
         if shouldUpdateDashLine {
+            shouldUpdateDashLine = false
             self.updateDashLine(of: willUpdateNotes)
         }
 
@@ -139,6 +140,22 @@ class NoteVC: UIViewController {
                 return
             }
             guard let indexPath = tableView.indexPathForSelectedRow else {
+                LogUtils.LogDebug(type: .error, message: "indexPath is nil")
+                return
+            }
+            let note = self.fetchedResultsController.object(at: indexPath)
+            desVC.note = note
+        case "gotoTagVC":
+            guard let desVC = segue.destination as? TagVC else {
+                LogUtils.LogDebug(type: .error, message: "desVC is nil")
+                return
+            }
+            guard let tappedButton = sender as? UIButton else {
+                LogUtils.LogDebug(type: .error, message: "can't get tapped button")
+                return
+            }
+            let tappedButtonPosition: CGPoint = tappedButton.convert(CGPoint.zero, to: self.tableView)
+            guard let indexPath = tableView.indexPathForRow(at: tappedButtonPosition) else {
                 LogUtils.LogDebug(type: .error, message: "indexPath is nil")
                 return
             }
@@ -226,7 +243,10 @@ extension NoteVC: NSFetchedResultsControllerDelegate {
     }
     
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
+        
         LogUtils.LogDebug(type: .info, message: "\(#function) get called")
+        print("=== Type: \(type.rawValue)") /// 1: insert, 2: delete, 3: move, 4:update
+        
         switch type {
         case .insert:
             if let index = newIndexPath {

@@ -12,11 +12,7 @@ import CoreData
 class EditNoteVC: UIViewController {
     
     // MARK: - Properties:
-    var note: Note? {
-        didSet {
-            LogUtils.LogDebug(type: .info, message: "Load note successfully")
-        }
-    }
+    var note: Note?
     private var currentTitleValue = ""
     private var currentContentValue = ""
     private var currentCategoryValue = ""
@@ -24,6 +20,7 @@ class EditNoteVC: UIViewController {
     @IBOutlet weak var titleTextField: UITextField!
     @IBOutlet weak var contentTextView: UITextView!
     @IBOutlet weak var categoryLabel: UILabel!
+    @IBOutlet weak var tagsLabel: UILabel!
     
     
     // MARK: - ViewLifeCycle:
@@ -48,10 +45,10 @@ class EditNoteVC: UIViewController {
         }
         let editedContent = self.contentTextView.text
         guard (editedTitle != self.currentTitleValue) || (editedContent != self.currentContentValue) else {
-            LogUtils.LogDebug(type: .info, message: "Title and Content didn't change")
             return
         }
         // if there's real changes, update note:
+        LogUtils.LogDebug(type: .info, message: "=== Do change model")
         self.note?.updatedAt = Date()
         self.note?.title = editedTitle
         self.note?.content = self.contentTextView.text
@@ -59,6 +56,25 @@ class EditNoteVC: UIViewController {
     }
     
     // MARK: - Setup When ViewDidLoad:
+    
+    private func setupView() {
+        
+        self.tagsLabel.text = note?.alphabetizedTagsAsString ?? "No Tag"
+        
+        self.updateCategoryLabel()
+        
+        self.titleTextField.text = self.note?.title
+        self.currentTitleValue = (self.note?.title!)!
+        
+        self.contentTextView.text = self.note?.content
+        self.currentContentValue = (self.note?.content)!
+    }
+    
+    private func updateCategoryLabel() {
+        self.categoryLabel.text = note?.category?.name ?? "No Category"
+    }
+    
+
     private func setupNotificationHandling() {
         NotificationCenter.default.addObserver(self, selector: #selector(handleManagedObjectContextDidChange(notification:)),
                                                name: .NSManagedObjectContextObjectsDidChange,
@@ -112,30 +128,6 @@ class EditNoteVC: UIViewController {
     }
     
     // MARK: - Helper Functions:
-    private func setupView() {
-        
-        setupTitleTextField()
-        setupContentTextView()
-        updateCategoryLabel()
-    }
-    
-    private func updateCategoryLabel() {
-        self.categoryLabel.text = note?.category?.name ?? "null"
-    }
-    
-    private func setupTitleTextField() {
-        
-        self.titleTextField.text = self.note?.title
-        self.currentTitleValue = (self.note?.title!)!
-    }
-    
-    private func setupContentTextView() {
-        
-        self.contentTextView.text = self.note?.content
-        self.currentContentValue = (self.note?.content)!
-    }
-    
-    
-  
-    
+   
+
 }

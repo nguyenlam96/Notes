@@ -18,6 +18,8 @@ class NoteCell: UITableViewCell {
     @IBOutlet weak var updatedAtLabel: UILabel!
     @IBOutlet weak var contentLabel: UILabel!
     @IBOutlet weak var dashLineColor: UIView!
+    @IBOutlet weak var tagsLabel: UILabel!
+    
     
     // MARK: - ViewLifeCycle:
     override func awakeFromNib() {
@@ -29,19 +31,20 @@ class NoteCell: UITableViewCell {
 
     }
     
+    // MARK: - IBAction:
+    @IBAction func tagsButtonPressed(_ sender: UIButton) {
+        
+    }
+    
     // MARK: - Helper :
     func bindData(note: Note) {
         
+        self.dashLineColor.backgroundColor = note.category?.color ?? .white
         self.titleLabel.text = note.title
+        self.tagsLabel.text = note.alphabetizedTagsAsString ?? "No tags"
         self.contentLabel.text = note.content
         self.updatedAtLabel.text = customDateFormatter().string(from: note.updatedAtAsDate)
-        
-        if let color = note.category?.color {
-            self.dashLineColor.backgroundColor = color
-        } else {
-            self.dashLineColor.backgroundColor = .white
-        }
-        
+
     }
 
 }

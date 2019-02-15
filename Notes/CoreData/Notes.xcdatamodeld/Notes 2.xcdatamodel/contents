@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14460.32" systemVersion="18D42" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Category" representedClassName="Category" syncable="YES" codeGenerationType="class">
-        <attribute name="colorAsHex" attributeType="String" syncable="YES"/>
+        <attribute name="colorAsHex" attributeType="String" defaultValueString="FFFFFF" syncable="YES"/>
         <attribute name="name" attributeType="String" syncable="YES"/>
         <relationship name="notes" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Note" inverseName="category" inverseEntity="Note" syncable="YES"/>
     </entity>

@@ -10,6 +10,7 @@ import Foundation
 
 extension Note {
     
+    // MARK: - Exchange Date and NSDate :
     var updatedAtAsDate: Date {
         guard let updatedAt = self.updatedAt else {
             LogUtils.LogDebug(type: .warning, message: "updatedAt is nil")
@@ -27,4 +28,28 @@ extension Note {
         return Date(timeIntervalSince1970: createddAt.timeIntervalSince1970)
     }
     
+    // MARK: - Tags :
+    var alphabetizedTags: [Tag]? {
+        
+        guard let tags = self.tags as? Set<Tag> else {
+            LogUtils.LogDebug(type: .warning, message: "Fail to get tags")
+            return nil
+        }
+        let sortedTags = tags.sorted {
+            guard let tag0Name = $0.name else { return true }
+            guard let tag1Name = $1.name else { return true }
+            return tag0Name < tag1Name
+        }
+        return sortedTags
+    }
+    
+    var alphabetizedTagsAsString: String? {
+        
+        guard let tags = alphabetizedTags, tags.count > 0 else {
+            LogUtils.LogDebug(type: .warning, message: "tags is nil or empty")
+            return nil
+        }
+        let tagNameArray = tags.compactMap { $0.name }
+        return tagNameArray.joined(separator: ", ")
+    }
 }

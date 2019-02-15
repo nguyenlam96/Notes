@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		05249EAD22168CEA005956E9 /* Tag.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 05249EAC22168CEA005956E9 /* Tag.storyboard */; };
+		05249EB022168D21005956E9 /* TagVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05249EAF22168D21005956E9 /* TagVC.swift */; };
+		05249EB222168D2B005956E9 /* AddTagVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05249EB122168D2B005956E9 /* AddTagVC.swift */; };
+		05249EB422168D36005956E9 /* EditTagVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05249EB322168D36005956E9 /* EditTagVC.swift */; };
+		05249EB622168D9A005956E9 /* TagCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05249EB522168D9A005956E9 /* TagCell.swift */; };
 		05DA04982213C3E3004545D6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05DA04972213C3E3004545D6 /* AppDelegate.swift */; };
 		05DA049A2213C3E3004545D6 /* NoteVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05DA04992213C3E3004545D6 /* NoteVC.swift */; };
 		05DA049D2213C3E3004545D6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 05DA049B2213C3E3004545D6 /* Main.storyboard */; };
@@ -51,6 +56,11 @@
 
 /* Begin PBXFileReference section */
 		05249EAB221667F6005956E9 /* Notes 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Notes 2.xcdatamodel"; sourceTree = "<group>"; };
+		05249EAC22168CEA005956E9 /* Tag.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Tag.storyboard; sourceTree = "<group>"; };
+		05249EAF22168D21005956E9 /* TagVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagVC.swift; sourceTree = "<group>"; };
+		05249EB122168D2B005956E9 /* AddTagVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTagVC.swift; sourceTree = "<group>"; };
+		05249EB322168D36005956E9 /* EditTagVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTagVC.swift; sourceTree = "<group>"; };
+		05249EB522168D9A005956E9 /* TagCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagCell.swift; sourceTree = "<group>"; };
 		05DA04942213C3E3004545D6 /* Notes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Notes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		05DA04972213C3E3004545D6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		05DA04992213C3E3004545D6 /* NoteVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteVC.swift; sourceTree = "<group>"; };
@@ -107,6 +117,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		05249EAE22168D13005956E9 /* Tag */ = {
+			isa = PBXGroup;
+			children = (
+				05249EAF22168D21005956E9 /* TagVC.swift */,
+				05249EB122168D2B005956E9 /* AddTagVC.swift */,
+				05249EB322168D36005956E9 /* EditTagVC.swift */,
+			);
+			path = Tag;
+			sourceTree = "<group>";
+		};
 		05DA048B2213C3E3004545D6 = {
 			isa = PBXGroup;
 			children = (
@@ -180,6 +200,7 @@
 		05DA04CA2213C48C004545D6 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				05249EAE22168D13005956E9 /* Tag */,
 				05DA04E622154B9A004545D6 /* Category */,
 				05DA04E522154B8F004545D6 /* Note */,
 			);
@@ -192,6 +213,7 @@
 				05DA049B2213C3E3004545D6 /* Main.storyboard */,
 				05DA04E322154791004545D6 /* Category.storyboard */,
 				05DA04A32213C3E5004545D6 /* LaunchScreen.storyboard */,
+				05249EAC22168CEA005956E9 /* Tag.storyboard */,
 			);
 			path = Storyboards;
 			sourceTree = "<group>";
@@ -236,6 +258,7 @@
 			children = (
 				05DA04DC22140DBB004545D6 /* NoteCell.swift */,
 				05DA04ED2215584E004545D6 /* CategoryCell.swift */,
+				05249EB522168D9A005956E9 /* TagCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -377,6 +400,7 @@
 				05DA04E422154791004545D6 /* Category.storyboard in Resources */,
 				05DA04A52213C3E5004545D6 /* LaunchScreen.storyboard in Resources */,
 				05DA04A22213C3E5004545D6 /* Assets.xcassets in Resources */,
+				05249EAD22168CEA005956E9 /* Tag.storyboard in Resources */,
 				05DA049D2213C3E3004545D6 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -413,6 +437,10 @@
 				05DA04E022141A70004545D6 /* Note+.swift in Sources */,
 				05DA04EC22154BCC004545D6 /* EditCategoryVC.swift in Sources */,
 				05DA04A02213C3E3004545D6 /* Notes.xcdatamodeld in Sources */,
+				05249EB222168D2B005956E9 /* AddTagVC.swift in Sources */,
+				05249EB022168D21005956E9 /* TagVC.swift in Sources */,
+				05249EB422168D36005956E9 /* EditTagVC.swift in Sources */,
+				05249EB622168D9A005956E9 /* TagCell.swift in Sources */,
 				05DA04DD22140DBB004545D6 /* NoteCell.swift in Sources */,
 				05DA04CF2213C534004545D6 /* CoreDataManager.swift in Sources */,
 				05DA04982213C3E3004545D6 /* AppDelegate.swift in Sources */,
