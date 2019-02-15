@@ -17,6 +17,7 @@ class NoteCell: UITableViewCell {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var updatedAtLabel: UILabel!
     @IBOutlet weak var contentLabel: UILabel!
+    @IBOutlet weak var dashLineColor: UIView!
     
     // MARK: - ViewLifeCycle:
     override func awakeFromNib() {
@@ -34,6 +35,13 @@ class NoteCell: UITableViewCell {
         self.titleLabel.text = note.title
         self.contentLabel.text = note.content
         self.updatedAtLabel.text = customDateFormatter().string(from: note.updatedAtAsDate)
+        
+        if let color = note.category?.color {
+            self.dashLineColor.backgroundColor = color
+        } else {
+            self.dashLineColor.backgroundColor = .white
+        }
+        
     }
 
 }

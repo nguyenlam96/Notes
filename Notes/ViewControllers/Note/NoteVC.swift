@@ -25,18 +25,8 @@ class NoteVC: UIViewController {
         return fetchedResultsController
     }()
     
-//    private var notes: [Note]? {
-//        didSet {
-//            updateTableView()
-//        }
-//    }
-    
     private var hasNotes: Bool {
-//        guard self.notes != nil else {
-//            LogUtils.LogDebug(type: .error, message: "notes is nil")
-//            return false
-//        }
-//        return self.notes!.count > 0
+
         guard let fetchedObjects = self.fetchedResultsController.fetchedObjects else {
             LogUtils.LogDebug(type: .error, message: "notes is nil")
             return false
@@ -57,30 +47,16 @@ class NoteVC: UIViewController {
         self.title = "Notes"
         self.tableView.delegate = self
         self.tableView.dataSource = self
+        
+        self.setupNotifications()
         self.fetchNotes()
-//        self.setupNotificationHandling()
         self.updateTableView()
     }
     
     
     // MARK: - Setup When ViewDidLoad:
     private func fetchNotes() {
-        
-//        // define fetch request:
-//        let fetchRequest: NSFetchRequest<Note> = Note.fetchRequest()
-//        let dateSortDescriptor = NSSortDescriptor(key: "updatedAt", ascending: false)
-//        fetchRequest.sortDescriptors = [ dateSortDescriptor ]
-//        // perform fetch request:
-//        self.coreDataManager.managedObjectContext.performAndWait {
-//            do {
-//                let fetchedNotes = try fetchRequest.execute()
-//                self.notes = fetchedNotes
-//                self.tableView.reloadData()
-//            } catch {
-//                LogUtils.LogDebug(type: .error, message: error.localizedDescription)
-//                return
-//            }
-//        }
+
         do {
             try self.fetchedResultsController.performFetch()
         } catch {
@@ -89,78 +65,60 @@ class NoteVC: UIViewController {
         }
     }
     
-    /*
-    private func setupNotificationHandling() {
-        // this notification is used to update tableView
-        NotificationCenter.default.addObserver(self, selector: #selector(managedObjectContextDidChange(notification:)),
-                                            name: .NSManagedObjectContextObjectsDidChange,
-                                            object: self.coreDataManager.managedObjectContext)
+    private func setupNotifications() {
+        NotificationCenter.default.addObserver(self, selector: #selector(handleNotiDashLineColorChanged(notification:)),
+                                               name: NSNotification.Name(rawValue: NOTI_DASHLINE_COLOR_CHANGED),
+                                               object: nil)
     }
     
-    @objc func managedObjectContextDidChange(notification: Notification) {
-        LogUtils.LogDebug(type: .info, message: "Detect that there's some objects changed")
-        // ensure there're notes changed:
+    @objc func handleNotiDashLineColorChanged(notification: Notification) {
+        LogUtils.LogDebug(type: .info, message: "\(#function) get called")
+        // update category for current note:
         guard let userInfo = notification.userInfo else {
             LogUtils.LogDebug(type: .warning, message: "UserInfo is nil")
             return
         }
-        // it's insert changes:
-        if let insertedObjects = userInfo[NSInsertedObjectsKey] as? Set<NSManagedObject> {
-            
-            LogUtils.LogDebug(type: .warning, message: "it's insert changes")
-            for insertedObject in insertedObjects {
-                if let insertedNote = insertedObject as? Note {
-                    self.notes?.append(insertedNote)
-                    self.notesDidChange = true
-                }
-            }
+        guard let updatedCategory = userInfo["category"] as? Category else {
+            LogUtils.LogDebug(type: .info, message: "Can't find the category updated")
+            return
         }
-        // it's update changes:
-        if let updatedObjects = userInfo[NSUpdatedObjectsKey] as? Set<NSManagedObject> {
-            
-            LogUtils.LogDebug(type: .info, message: "it's update changes")
-            for updatedObject in updatedObjects {
-                if let _ = updatedObject as? Note {
-                    self.notesDidChange = true
-                }
-            }
-        }
-        // it's delete changes:
-        if let deletedObjects = userInfo[NSDeletedObjectsKey] as? Set<NSManagedObject> {
-            
-            LogUtils.LogDebug(type: .info, message: "it's delete changes")
-            for deletedObject in deletedObjects {
-                if let deletedNote = deletedObject as? Note {
-                    if let index = self.notes?.index(of: deletedNote) {
-                        self.notes?.remove(at: index)
-                        self.notesDidChange = true
-                    } else {
-                        LogUtils.LogDebug(type: .error, message: "Can't find index of deletedNote: \(deletedNote)")
-                    }
-                }
-            }
-        }
-        // update table view:
-        if notesDidChange {
-            // re-sort by date:
-            self.notes?.sort(by: { (note1, note2) -> Bool in
-                note1.updatedAtAsDate > note2.updatedAtAsDate
-            })
-            // reload tbview:
-            self.tableView.reloadData()
-            self.updateTableView() // updateTableView() do the work of show/hidden messageLabel when there's tableView is empty
-            self.notesDidChange = false
-            LogUtils.LogDebug(type: .info, message: "=== TableView has updated!")
-        }
-    }
-    */
-    // MARK: - IBAction:
-    @IBAction func editButtonPressed(_ sender: UIBarButtonItem) {
+        // ensure the current note's category is updated
+        var shouldUpdateDashLine = false
+        var willUpdateNotes:[Note] = []
         
-        self.navigationItem.leftBarButtonItem?.title = (self.tableView.isEditing) ? "Edit" : "Done"
-        self.tableView.isEditing = !self.tableView.isEditing
+        guard let fetchedNotes = self.fetchedResultsController.fetchedObjects, fetchedNotes.count > 0 else {
+            LogUtils.LogDebug(type: .warning, message: "fetchedNotes is nil or empty")
+            return
+        }
+        for note in fetchedNotes {
+            if note.category == updatedCategory {
+                willUpdateNotes.append(note)
+                shouldUpdateDashLine = true
+            }
+        }
+        if shouldUpdateDashLine {
+            self.updateDashLine(of: willUpdateNotes)
+        }
+
+
     }
-    
+
+    private func updateDashLine(of notes: [Note]) {
+        LogUtils.LogDebug(type: .info, message: "\(#function) get called")
+        // update at the cell that changed:
+        for note in notes {
+            if let index = self.fetchedResultsController.indexPath(forObject: note) {
+                let cell = self.tableView.cellForRow(at: index) as? NoteCell
+                cell?.bindData(note: note)
+            } else {
+                LogUtils.LogDebug(type: .info, message: "this index is nil")
+            }
+        }
+
+
+    }
+    // MARK: - IBAction:
+
     // MARK: Navigation:
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
@@ -214,7 +172,7 @@ extension NoteVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        return hasNotes ? self.notes!.count : 0
+        
         guard let section = self.fetchedResultsController.sections?[section] else {
             LogUtils.LogDebug(type: .error, message: "fetchedResultsController.section is nil")
             return 0
@@ -223,18 +181,7 @@ extension NoteVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-//        guard let cell = tableView.dequeueReusableCell(withIdentifier: NoteCell.reuseIdentifier, for: indexPath) as? NoteCell else {
-//            fatalError("Unexpected Indexpath")
-//        }
-//        guard let note = self.notes?[indexPath.row] else {
-//            LogUtils.LogDebug(type: .error, message: "Fail to get note")
-//            return tableView.dequeueReusableCell(withIdentifier: "Cell")!
-//        }
-//        // bind data:
-//        cell.bindData(note: note)
-//
-//        return cell
+
         guard let cell = tableView.dequeueReusableCell(withIdentifier: NoteCell.reuseIdentifier, for: indexPath) as? NoteCell else {
             fatalError("Unexpected Indexpath")
         }
@@ -247,17 +194,7 @@ extension NoteVC: UITableViewDataSource, UITableViewDelegate {
         return true
     }
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        
-//        if editingStyle == .delete {
-//            // ensure there's a note:
-//            guard let note = self.notes?[indexPath.row] else {
-//                LogUtils.LogDebug(type: .error, message: "can't get the note from indexPath")
-//                return
-//            }
-//            // the delete it:
-//            note.managedObjectContext?.delete(note)
-////            self.coreDataManager.managedObjectContext.delete(note) // this line works too
-//        }
+
         if editingStyle == .delete {
             let note = self.fetchedResultsController.object(at: indexPath)
             note.managedObjectContext?.delete(note)
@@ -273,26 +210,13 @@ extension NoteVC: UITableViewDataSource, UITableViewDelegate {
         
     }
     
-    func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-    
-    func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-
-        
-        
-        
-    }
-    
 }
 
 extension NoteVC: NSFetchedResultsControllerDelegate {
     
     func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         
-        // inform the tableView that updates are on their way:
         self.tableView.beginUpdates()
-        
     }
     
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
@@ -302,7 +226,7 @@ extension NoteVC: NSFetchedResultsControllerDelegate {
     }
     
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
-        
+        LogUtils.LogDebug(type: .info, message: "\(#function) get called")
         switch type {
         case .insert:
             if let index = newIndexPath {

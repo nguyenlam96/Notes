@@ -83,20 +83,64 @@
             </objects>
             <point key="canvasLocation" x="1032.8" y="165.06746626686657"/>
         </scene>
-        <!--View Controller-->
+        <!--Color PickerVC-->
         <scene sceneID="eN7-Kc-2Jk">
             <objects>
-                <viewController id="0ES-JO-keX" sceneMemberID="viewController">
+                <viewController id="0ES-JO-keX" customClass="ColorPickerVC" customModule="Notes" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="tIC-LQ-E3o">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="0Fn-z8-18K">
+                                <rect key="frame" x="16" y="158" width="345" height="31"/>
+                                <color key="tintColor" red="1" green="0.27968068060000001" blue="0.194774329" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <connections>
+                                    <action selector="redSlideValueChanged:" destination="0ES-JO-keX" eventType="valueChanged" id="nkq-t3-0gM"/>
+                                </connections>
+                            </slider>
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="tMX-GG-Ru1">
+                                <rect key="frame" x="14" y="222" width="345" height="31"/>
+                                <color key="tintColor" red="0.0" green="0.97680455450000003" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <connections>
+                                    <action selector="greenSlideValueChanged:" destination="0ES-JO-keX" eventType="valueChanged" id="mdV-cx-ht7"/>
+                                </connections>
+                            </slider>
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="XbL-87-2C9">
+                                <rect key="frame" x="16" y="286" width="345" height="31"/>
+                                <connections>
+                                    <action selector="blueSlideValueChanged:" destination="0ES-JO-keX" eventType="valueChanged" id="Ut5-6L-jzv"/>
+                                </connections>
+                            </slider>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hzQ-9Y-XZm">
+                                <rect key="frame" x="16" y="374" width="50" height="50"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="QxP-DP-TBh" firstAttribute="trailing" secondItem="0Fn-z8-18K" secondAttribute="trailing" constant="16" id="GSw-dV-NO3"/>
+                            <constraint firstItem="tMX-GG-Ru1" firstAttribute="leading" secondItem="QxP-DP-TBh" secondAttribute="leading" constant="16" id="MJh-rb-pTy"/>
+                            <constraint firstItem="0Fn-z8-18K" firstAttribute="leading" secondItem="QxP-DP-TBh" secondAttribute="leading" constant="18" id="XNi-d0-pyd"/>
+                            <constraint firstItem="QxP-DP-TBh" firstAttribute="trailing" secondItem="XbL-87-2C9" secondAttribute="trailing" constant="16" id="nIQ-02-Jvf"/>
+                            <constraint firstItem="tMX-GG-Ru1" firstAttribute="top" secondItem="0Fn-z8-18K" secondAttribute="bottom" constant="34" id="ojQ-uh-Vb6"/>
+                            <constraint firstItem="QxP-DP-TBh" firstAttribute="trailing" secondItem="tMX-GG-Ru1" secondAttribute="trailing" constant="18" id="qSt-9R-JKd"/>
+                            <constraint firstItem="XbL-87-2C9" firstAttribute="leading" secondItem="QxP-DP-TBh" secondAttribute="leading" constant="18" id="rGI-T6-9yJ"/>
+                            <constraint firstItem="0Fn-z8-18K" firstAttribute="top" secondItem="QxP-DP-TBh" secondAttribute="top" constant="138" id="sSI-v5-HdB"/>
+                            <constraint firstItem="XbL-87-2C9" firstAttribute="top" secondItem="tMX-GG-Ru1" secondAttribute="bottom" constant="34" id="ulh-hr-G8f"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="QxP-DP-TBh"/>
                     </view>
+                    <connections>
+                        <outlet property="blueSlide" destination="XbL-87-2C9" id="N12-e4-IXh"/>
+                        <outlet property="greenSlide" destination="tMX-GG-Ru1" id="Lbq-sd-Sln"/>
+                        <outlet property="previewColorView" destination="hzQ-9Y-XZm" id="EZD-Ig-09e"/>
+                        <outlet property="redSlide" destination="0Fn-z8-18K" id="xm1-96-ONY"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2Vz-pl-zam" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1174" y="887"/>
+            <point key="canvasLocation" x="2864.8000000000002" y="550.97451274362822"/>
         </scene>
         <!--Edit CategoryVC-->
         <scene sceneID="qPK-SM-Eqz">
@@ -107,18 +151,28 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="B5s-7i-l40">
-                                <rect key="frame" x="16" y="112" width="343" height="30"/>
+                                <rect key="frame" x="56" y="112" width="303" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ix2-CL-oj0">
+                                <rect key="frame" x="16" y="112" width="30" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <size key="titleShadowOffset" width="1" height="1"/>
+                                <connections>
+                                    <segue destination="0ES-JO-keX" kind="show" identifier="gotoColorPickerVC" id="nS6-83-A6t"/>
+                                </connections>
+                            </button>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <viewLayoutGuide key="safeArea" id="dHv-IT-I99"/>
                     </view>
                     <connections>
                         <outlet property="categoryNameTextField" destination="B5s-7i-l40" id="HbZ-WJ-AXw"/>
+                        <outlet property="colorView" destination="Ix2-CL-oj0" id="Eal-0P-Yaw"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bdf-bV-4Fl" userLabel="First Responder" sceneMemberID="firstResponder"/>

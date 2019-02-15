@@ -61,14 +61,24 @@
                                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SNs-Ud-J8Y">
+                                                    <rect key="frame" x="0.0" y="0.0" width="4" height="99.5"/>
+                                                    <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="4" id="mYw-2Y-aHc"/>
+                                                    </constraints>
+                                                </view>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="evt-IJ-IfJ" firstAttribute="leading" secondItem="qzd-ZD-lGk" secondAttribute="leadingMargin" id="1Vs-X0-oF4"/>
                                                 <constraint firstItem="OaY-9n-alP" firstAttribute="top" secondItem="qzd-ZD-lGk" secondAttribute="topMargin" id="1uv-j9-SP2"/>
                                                 <constraint firstItem="evt-IJ-IfJ" firstAttribute="top" secondItem="qzd-ZD-lGk" secondAttribute="topMargin" id="2UX-ae-pE1"/>
                                                 <constraint firstItem="QuR-vV-6Cf" firstAttribute="trailing" secondItem="qzd-ZD-lGk" secondAttribute="trailingMargin" id="JHd-tM-bNV"/>
+                                                <constraint firstItem="SNs-Ud-J8Y" firstAttribute="leading" secondItem="qzd-ZD-lGk" secondAttribute="leading" id="N0d-S0-7bh"/>
                                                 <constraint firstItem="OaY-9n-alP" firstAttribute="trailing" secondItem="qzd-ZD-lGk" secondAttribute="trailingMargin" id="NcJ-aP-B1S"/>
                                                 <constraint firstItem="OaY-9n-alP" firstAttribute="leading" secondItem="evt-IJ-IfJ" secondAttribute="trailing" constant="15" id="PZX-3r-5Gd"/>
+                                                <constraint firstItem="SNs-Ud-J8Y" firstAttribute="top" secondItem="qzd-ZD-lGk" secondAttribute="top" id="Pqz-VQ-SMV"/>
+                                                <constraint firstAttribute="bottom" secondItem="SNs-Ud-J8Y" secondAttribute="bottom" id="QEf-yy-dnV"/>
                                                 <constraint firstItem="QuR-vV-6Cf" firstAttribute="top" secondItem="evt-IJ-IfJ" secondAttribute="bottom" constant="8" id="QpW-31-KLH"/>
                                                 <constraint firstItem="QuR-vV-6Cf" firstAttribute="bottom" secondItem="qzd-ZD-lGk" secondAttribute="bottomMargin" id="loN-OW-eJ9"/>
                                                 <constraint firstItem="QuR-vV-6Cf" firstAttribute="leading" secondItem="qzd-ZD-lGk" secondAttribute="leadingMargin" id="qej-7a-KTW"/>
@@ -76,6 +86,7 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="contentLabel" destination="QuR-vV-6Cf" id="bR7-GN-x8R"/>
+                                            <outlet property="dashLineColor" destination="SNs-Ud-J8Y" id="5fz-pF-fPQ"/>
                                             <outlet property="titleLabel" destination="evt-IJ-IfJ" id="TyP-7y-ITV"/>
                                             <outlet property="updatedAtLabel" destination="OaY-9n-alP" id="eby-xA-I8d"/>
                                             <segue destination="Gef-y7-Zet" kind="show" identifier="gotoEditNoteVC" id="jDB-3N-e0d"/>
@@ -94,11 +105,6 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <navigationItem key="navigationItem" id="ddj-Wv-2xr">
-                        <barButtonItem key="leftBarButtonItem" title="Edit" id="3rY-l0-vV9">
-                            <connections>
-                                <action selector="editButtonPressed:" destination="BYZ-38-t0r" id="qAy-Xc-nji"/>
-                            </connections>
-                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="VEi-g4-87J">
                             <connections>
                                 <segue destination="umg-kG-awZ" kind="show" identifier="gotoAddNoteVC" id="yod-4O-Lcn"/>

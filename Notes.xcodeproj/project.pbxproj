@@ -21,13 +21,14 @@
 		05DA04D82213FD8F004545D6 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05DA04D72213FD8F004545D6 /* Helper.swift */; };
 		05DA04DA2214005A004545D6 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05DA04D92214005A004545D6 /* Extensions.swift */; };
 		05DA04DD22140DBB004545D6 /* NoteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05DA04DC22140DBB004545D6 /* NoteCell.swift */; };
-		05DA04E022141A70004545D6 /* Note.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05DA04DF22141A70004545D6 /* Note.swift */; };
+		05DA04E022141A70004545D6 /* Note+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05DA04DF22141A70004545D6 /* Note+.swift */; };
 		05DA04E2221420E1004545D6 /* EditNoteVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05DA04E1221420E1004545D6 /* EditNoteVC.swift */; };
 		05DA04E422154791004545D6 /* Category.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 05DA04E322154791004545D6 /* Category.storyboard */; };
 		05DA04E822154BA6004545D6 /* CategoryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05DA04E722154BA6004545D6 /* CategoryVC.swift */; };
 		05DA04EA22154BB7004545D6 /* AddCategoryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05DA04E922154BB7004545D6 /* AddCategoryVC.swift */; };
 		05DA04EC22154BCC004545D6 /* EditCategoryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05DA04EB22154BCC004545D6 /* EditCategoryVC.swift */; };
 		05DA04EE2215584E004545D6 /* CategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05DA04ED2215584E004545D6 /* CategoryCell.swift */; };
+		05E083922215C89C00391B16 /* Category+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05E083912215C89C00391B16 /* Category+.swift */; };
 		05E98AD62215C23D002FBDE4 /* ColorPickerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05E98AD52215C23D002FBDE4 /* ColorPickerVC.swift */; };
 /* End PBXBuildFile section */
 
@@ -49,6 +50,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		05249EAB221667F6005956E9 /* Notes 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Notes 2.xcdatamodel"; sourceTree = "<group>"; };
 		05DA04942213C3E3004545D6 /* Notes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Notes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		05DA04972213C3E3004545D6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		05DA04992213C3E3004545D6 /* NoteVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteVC.swift; sourceTree = "<group>"; };
@@ -69,13 +71,14 @@
 		05DA04D72213FD8F004545D6 /* Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
 		05DA04D92214005A004545D6 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		05DA04DC22140DBB004545D6 /* NoteCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteCell.swift; sourceTree = "<group>"; };
-		05DA04DF22141A70004545D6 /* Note.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Note.swift; sourceTree = "<group>"; };
+		05DA04DF22141A70004545D6 /* Note+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Note+.swift"; sourceTree = "<group>"; };
 		05DA04E1221420E1004545D6 /* EditNoteVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditNoteVC.swift; sourceTree = "<group>"; };
 		05DA04E322154791004545D6 /* Category.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Category.storyboard; sourceTree = "<group>"; };
 		05DA04E722154BA6004545D6 /* CategoryVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryVC.swift; sourceTree = "<group>"; };
 		05DA04E922154BB7004545D6 /* AddCategoryVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCategoryVC.swift; sourceTree = "<group>"; };
 		05DA04EB22154BCC004545D6 /* EditCategoryVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditCategoryVC.swift; sourceTree = "<group>"; };
 		05DA04ED2215584E004545D6 /* CategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCell.swift; sourceTree = "<group>"; };
+		05E083912215C89C00391B16 /* Category+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Category+.swift"; sourceTree = "<group>"; };
 		05E98AD52215C23D002FBDE4 /* ColorPickerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPickerVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -240,7 +243,8 @@
 		05DA04DE22141A68004545D6 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				05DA04DF22141A70004545D6 /* Note.swift */,
+				05DA04DF22141A70004545D6 /* Note+.swift */,
+				05E083912215C89C00391B16 /* Category+.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -406,12 +410,13 @@
 				05DA04E2221420E1004545D6 /* EditNoteVC.swift in Sources */,
 				05DA04D82213FD8F004545D6 /* Helper.swift in Sources */,
 				05DA04E822154BA6004545D6 /* CategoryVC.swift in Sources */,
-				05DA04E022141A70004545D6 /* Note.swift in Sources */,
+				05DA04E022141A70004545D6 /* Note+.swift in Sources */,
 				05DA04EC22154BCC004545D6 /* EditCategoryVC.swift in Sources */,
 				05DA04A02213C3E3004545D6 /* Notes.xcdatamodeld in Sources */,
 				05DA04DD22140DBB004545D6 /* NoteCell.swift in Sources */,
 				05DA04CF2213C534004545D6 /* CoreDataManager.swift in Sources */,
 				05DA04982213C3E3004545D6 /* AppDelegate.swift in Sources */,
+				05E083922215C89C00391B16 /* Category+.swift in Sources */,
 				05DA04EA22154BB7004545D6 /* AddCategoryVC.swift in Sources */,
 				05DA04EE2215584E004545D6 /* CategoryCell.swift in Sources */,
 			);
@@ -747,9 +752,10 @@
 		05DA049E2213C3E3004545D6 /* Notes.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				05249EAB221667F6005956E9 /* Notes 2.xcdatamodel */,
 				05DA049F2213C3E3004545D6 /* Notes.xcdatamodel */,
 			);
-			currentVersion = 05DA049F2213C3E3004545D6 /* Notes.xcdatamodel */;
+			currentVersion = 05249EAB221667F6005956E9 /* Notes 2.xcdatamodel */;
 			path = Notes.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
