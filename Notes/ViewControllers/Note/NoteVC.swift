@@ -264,6 +264,8 @@ extension NoteVC: NSFetchedResultsControllerDelegate {
                 cell?.bindData(note: note)
             }
         case .move:
+            break
+            // have to do this so the editedCell can move up to the top:
             if let sourceIndex = indexPath {
                 self.tableView.deleteRows(at: [sourceIndex], with: .fade)
             }

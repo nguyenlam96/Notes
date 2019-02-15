@@ -200,22 +200,20 @@ extension TagVC: NSFetchedResultsControllerDelegate {
                 self.tableView.deleteRows(at: [index], with: .fade)
             }
         case .update:
-            LogUtils.LogDebug(type: .info, message: "update get called")
-            let index = (newIndexPath != nil) ? newIndexPath : indexPath
-            let updatedTag = self.fetchedResultsController.object(at: index!)
-            let cell = self.tableView.cellForRow(at: index!) as? TagCell
-            cell?.bindData(with: updatedTag)
-//            if let index = indexPath {
-//                let updatedTag = self.fetchedResultsController.object(at: index)
-//                let cell = self.tableView.cellForRow(at: index) as? TagCell
-//                cell?.bindData(with: updatedTag)
-//            }
+            if let index = newIndexPath {
+                let updatedTag = self.fetchedResultsController.object(at: index)
+                let cell = self.tableView.cellForRow(at: index) as? TagCell
+                cell?.bindData(with: updatedTag)
+            }
         case .move:
+            // have to do this so the editedCell can move up to the top:
+            if let sourceIndex = indexPath {
+                self.tableView.deleteRows(at: [sourceIndex], with: .fade)
+            }
+            if let desIndex = newIndexPath {
+                self.tableView.insertRows(at: [desIndex], with: .fade)
+            }
             break
-//            let index = (newIndexPath != nil) ? newIndexPath : indexPath
-//            let updatedTag = self.fetchedResultsController.object(at: index!)
-//            let cell = self.tableView.cellForRow(at: index!) as? TagCell
-//            cell?.bindData(with: updatedTag)
         default:
             break
         }
