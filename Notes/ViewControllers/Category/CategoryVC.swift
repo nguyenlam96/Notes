@@ -221,7 +221,6 @@ extension CategoryVC: NSFetchedResultsControllerDelegate {
                 let updatedCategory = self.fetchedResultsController.object(at: index)
                 let cell = self.tableView.cellForRow(at: index) as? CategoryCell
                 cell?.bindData(category: updatedCategory)
-                
             }
         case .move:
             // have to do this so the editedCell can move up to the top:

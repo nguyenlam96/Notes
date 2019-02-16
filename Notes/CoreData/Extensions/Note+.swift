@@ -46,7 +46,7 @@ extension Note {
     var alphabetizedTagsAsString: String? {
         
         guard let tags = alphabetizedTags, tags.count > 0 else {
-            LogUtils.LogDebug(type: .warning, message: "tags is nil or empty")
+//            LogUtils.LogDebug(type: .warning, message: "tags is nil or empty")
             return nil
         }
         let tagNameArray = tags.compactMap { $0.name }

@@ -10,6 +10,9 @@ import UIKit
 
 class TagCell: UITableViewCell {
     
+    // MARK: - Properties:
+    static let reuseIdentifier = "TagCell"
+    
     // MARK: - IBOutlet:
     @IBOutlet weak var tagNameLabel: UILabel!
     
@@ -27,6 +30,9 @@ class TagCell: UITableViewCell {
     // MARK: - Helper Functions:
     func bindData(with tag: Tag) {
         self.tagNameLabel.text = tag.name
+        
+        
+        
     }
 
 }

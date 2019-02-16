@@ -11,7 +11,7 @@ import UIKit
 class NoteCell: UITableViewCell {
     
     // MARK: - Properties:
-    static let reuseIdentifier = "NoteTableViewCell"
+    static let reuseIdentifier = "NoteCell"
     
     // MARK: - IBOutlet:
     @IBOutlet weak var titleLabel: UILabel!

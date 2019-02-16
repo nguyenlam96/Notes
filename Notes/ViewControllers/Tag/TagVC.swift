@@ -143,8 +143,13 @@ extension TagVC: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "TagCell", for: indexPath) as! TagCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: TagCell.reuseIdentifier, for: indexPath) as! TagCell
         let tag = self.fetchedResultsController.object(at: indexPath)
+        
+        if let containsTag = note?.tags?.contains(tag) {
+            cell.tagNameLabel.textColor = (containsTag) ? #colorLiteral(red: 0, green: 0.4784313725, blue: 1, alpha: 1) : .black
+        }
+        
         cell.bindData(with: tag)
         
         return cell
@@ -168,7 +173,19 @@ extension TagVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
         self.tableView.deselectRow(at: indexPath, animated: true)
+        
+        // fetch tag:
+        let tag = self.fetchedResultsController.object(at: indexPath)
+        if (self.note?.tags?.contains(tag))! {
+            // remove it
+            self.note?.removeFromTags(tag)
+        } else {
+            // add it
+            self.note?.addToTags(tag)
+        }
+        self.navigationController?.popViewController(animated: true)
     }
     
 

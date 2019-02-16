@@ -73,7 +73,9 @@ class EditNoteVC: UIViewController {
     private func updateCategoryLabel() {
         self.categoryLabel.text = note?.category?.name ?? "No Category"
     }
-    
+    private func updateTagLabel() {
+        self.tagsLabel.text = note?.alphabetizedTagsAsString ?? "No Tag"
+    }
 
     private func setupNotificationHandling() {
         NotificationCenter.default.addObserver(self, selector: #selector(handleManagedObjectContextDidChange(notification:)),
@@ -89,22 +91,24 @@ class EditNoteVC: UIViewController {
             return
         }
         // ensure there're some changes happen:
-        guard let updatedCategory = userInfo[NSUpdatedObjectsKey] as? Set<NSManagedObject> else {
+        guard let updatedObjects = userInfo[NSUpdatedObjectsKey] as? Set<NSManagedObject> else {
             LogUtils.LogDebug(type: .info, message: "nothing to update")
             return
         }
-        // ensure the current note's category is updated
+
+        // update categoryLabel:
         var isUpdatedCategory = false
-        for ( _ , updatedCategory) in updatedCategory.enumerated() {
+        for ( _ , updatedCategory) in updatedObjects.enumerated() {
             if updatedCategory == self.note?.category {
                 isUpdatedCategory = true
             }
         }
-
         if isUpdatedCategory  {
             LogUtils.LogDebug(type: .info, message: "updateCategoryLabel get called")
             self.updateCategoryLabel()
         }
+        // update tagLabel:
+        /// when we add/remove a Tag from a Note, this NSManagedObjectContextObjectsDidChange notification is sent with userInfo[NSDeletedObjectsKey] / userInfo[NSInsertedObjectsKey] but because at that time we do not go to this EditNoteVC but pop back to the NoteVC, so we do not need to handle those deleted/inserted userInfo to update tagsLabel. And because the NoteVC is powered by FetchedResultsController, the tableView will automatically update cell's tagLabel, so we doesn't need to handle NoteVC too! When we tap to the NoteCell of the NoteVC to go to this EditNoteVC, the tagLabel is set when viewDidLoad()
 
     }
     
