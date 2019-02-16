@@ -12,14 +12,15 @@ import CoreData
 class NoteVC: UIViewController {
 
     // MARK: - Properties:
-    var coreDataManager: CoreDataManager = CoreDataManager(modelName: "Notes")
+//    var coreDataManager: CoreDataManager = CoreDataManager(modelName: "Notes")
+    private var persistentContainer = NSPersistentContainer(name: "Notes")
     
     private lazy var fetchedResultsController: NSFetchedResultsController<Note> = {
         
         let fetchRequest: NSFetchRequest<Note> = Note.fetchRequest()
         fetchRequest.sortDescriptors = [ NSSortDescriptor(key: "updatedAt", ascending: false) ]
         
-        let fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: self.coreDataManager.mainManagedObjectContext, sectionNameKeyPath: nil, cacheName: nil)
+        let fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: self.persistentContainer.viewContext, sectionNameKeyPath: nil, cacheName: nil)
         
         fetchedResultsController.delegate = self
         return fetchedResultsController
@@ -39,18 +40,31 @@ class NoteVC: UIViewController {
     // MARK: - IBOutlet:
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var messageLabel: UILabel!
+    @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
     
     // MARK: - ViewLifeCycle:
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+         
         self.title = "Notes"
         self.tableView.delegate = self
         self.tableView.dataSource = self
         
-        self.setupNotifications()
-        self.fetchNotes()
-        self.updateTableView()
+        self.activityIndicatorView.startAnimating()
+        self.persistentContainer.loadPersistentStores { (persistentStoreDescription, error) in
+            if let error = error {
+                LogUtils.LogDebug(type: .error, message: error.localizedDescription)
+            } else {
+                self.activityIndicatorView.stopAnimating()
+                LogUtils.LogDebug(type: .info, message: "activityIndicator is hidden")
+                self.setupNotifications()
+                self.fetchNotes()
+                self.updateView()
+            }
+            
+        }
+        
+       
     }
     
     
@@ -133,7 +147,7 @@ class NoteVC: UIViewController {
                 LogUtils.LogDebug(type: .error, message: "desVC is nil")
                 return
             }
-            desVC.managedObjectContext = self.coreDataManager.mainManagedObjectContext
+            desVC.managedObjectContext = self.persistentContainer.viewContext
         case "gotoEditNoteVC":
             guard let desVC = segue.destination as? EditNoteVC else {
                 LogUtils.LogDebug(type: .error, message: "desVC is nil")
@@ -167,7 +181,7 @@ class NoteVC: UIViewController {
     }
     
     // MARK: - Helper Functions:
-    private func updateTableView() {
+    private func updateView() {
         
         self.tableView.isHidden = !hasNotes
         self.messageLabel.isHidden = hasNotes
@@ -215,9 +229,9 @@ extension NoteVC: UITableViewDataSource, UITableViewDelegate {
         if editingStyle == .delete {
             let note = self.fetchedResultsController.object(at: indexPath)
             note.managedObjectContext?.delete(note)
+            /// can use this too:
+//            self.persistentContainer.viewContext.delete(note)
         }
-        
-        
     }
     // MARK: - TableView Delegate:
     
@@ -239,7 +253,7 @@ extension NoteVC: NSFetchedResultsControllerDelegate {
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         
         self.tableView.endUpdates()
-        self.updateTableView()
+        self.updateView()
     }
     
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {

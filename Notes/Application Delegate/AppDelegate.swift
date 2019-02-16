@@ -12,19 +12,10 @@ import CoreData
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
-    // MARK: - Properties:
     var window: UIWindow?
-//    private let coreDataManager = CoreDataManager(modelName: "Notes")
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-//         create InitialVC:
-//        guard let initialVC = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateInitialViewController() as? ViewController else {
-//            fatalError("Unable to Configure Inital View Controller")
-//        }
-//        initialVC.coreDataManager = self.coreDataManager
-//        // config Window:
-//        self.window?.rootViewController = initialVC
-//        LogUtils.LogDebug(type: .info, message: "\(coreDataManager.managedObjectContext)")
+        print(FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first)
         return true
     }
 

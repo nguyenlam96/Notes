@@ -26,6 +26,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="YZM-Pk-zbb">
+                                <rect key="frame" x="177.5" y="323.5" width="20" height="20"/>
+                            </activityIndicatorView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="9ai-hk-EKi">
                                 <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -130,6 +133,8 @@
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="9ai-hk-EKi" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="6Vz-N3-9uR"/>
+                            <constraint firstItem="YZM-Pk-zbb" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="JmE-bF-B7J"/>
+                            <constraint firstItem="YZM-Pk-zbb" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="NBu-34-CUD"/>
                             <constraint firstItem="9ai-hk-EKi" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="R3h-Q0-bhk"/>
                             <constraint firstItem="9ai-hk-EKi" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="gMt-O7-koS"/>
                             <constraint firstItem="9ai-hk-EKi" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="yl1-IN-J6K"/>
@@ -144,6 +149,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="activityIndicatorView" destination="YZM-Pk-zbb" id="TL7-8m-HvM"/>
                         <outlet property="messageLabel" destination="09w-rQ-x4p" id="ZTO-pt-ANT"/>
                         <outlet property="tableView" destination="9ai-hk-EKi" id="jnD-xA-ndP"/>
                     </connections>
