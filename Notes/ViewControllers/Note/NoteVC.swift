@@ -19,7 +19,7 @@ class NoteVC: UIViewController {
         let fetchRequest: NSFetchRequest<Note> = Note.fetchRequest()
         fetchRequest.sortDescriptors = [ NSSortDescriptor(key: "updatedAt", ascending: false) ]
         
-        let fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: self.coreDataManager.managedObjectContext, sectionNameKeyPath: nil, cacheName: nil)
+        let fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: self.coreDataManager.mainManagedObjectContext, sectionNameKeyPath: nil, cacheName: nil)
         
         fetchedResultsController.delegate = self
         return fetchedResultsController
@@ -133,7 +133,7 @@ class NoteVC: UIViewController {
                 LogUtils.LogDebug(type: .error, message: "desVC is nil")
                 return
             }
-            desVC.managedObjectContext = self.coreDataManager.managedObjectContext
+            desVC.managedObjectContext = self.coreDataManager.mainManagedObjectContext
         case "gotoEditNoteVC":
             guard let desVC = segue.destination as? EditNoteVC else {
                 LogUtils.LogDebug(type: .error, message: "desVC is nil")

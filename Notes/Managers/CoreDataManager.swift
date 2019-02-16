@@ -14,12 +14,20 @@ final class CoreDataManager {
     // MARK: - Properties:
     private let modelName: String
     
-    private(set) lazy var managedObjectContext: NSManagedObjectContext = {
-        let managerObjectContext = NSManagedObjectContext(concurrencyType: NSManagedObjectContextConcurrencyType.mainQueueConcurrencyType)
-            // managedObjectContext need to keep reference to the persistentStoreCoordinator:
-            managerObjectContext.persistentStoreCoordinator = self.persistentStoreCoordinator
+    private(set) lazy var mainManagedObjectContext: NSManagedObjectContext = {
         
-        return managerObjectContext
+        let mainManagerObjectContext = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
+            mainManagerObjectContext.parent = self.privateManagedObjectContext
+        
+        return mainManagerObjectContext
+    }()
+    
+    private lazy var privateManagedObjectContext: NSManagedObjectContext = {
+        
+        let privateManagedObjectContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
+            privateManagedObjectContext.persistentStoreCoordinator = self.persistentStoreCoordinator
+        
+        return privateManagedObjectContext
     }()
     
     private lazy var persistentStoreCoordinator: NSPersistentStoreCoordinator = {
@@ -69,19 +77,42 @@ final class CoreDataManager {
     
     @objc func saveChanges() {
         
-        // ensure there're changes:
-        guard self.managedObjectContext.hasChanges else {
-            LogUtils.LogDebug(type: .info, message: "There'is nothing changed")
-            return
+        self.mainManagedObjectContext.performAndWait {
+            do {
+                if self.mainManagedObjectContext.hasChanges {
+                    try self.mainManagedObjectContext.save() /// changes will be pushed to the privateManagedObjectContext ( the parent ), it's sync to ensure that the changes are really pushed to the privateManagedObjectContext
+                    LogUtils.LogDebug(type: .info, message: "=== pushed change to privateManagedObjectContext!")
+                }
+            } catch let saveError {
+                LogUtils.LogDebug(type: .error, message: "Fail to save on mainManagedObjectContext: \(saveError.localizedDescription)")
+                return
+            }
         }
-        // save context:
-        do {
-            try self.managedObjectContext.save()
-            LogUtils.LogDebug(type: .info, message: "=== saveContext!")
-        } catch {
-            LogUtils.LogDebug(type: .error, message: error.localizedDescription)
-            return
+        self.privateManagedObjectContext.perform {
+            do {
+                if self.privateManagedObjectContext.hasChanges {
+                    try self.privateManagedObjectContext.save() /// actually talk to persistenStoreCoordinator to write to persistenStore, it's async to perform immediately
+                    LogUtils.LogDebug(type: .info, message: "=== saved changes to persistenStore!")
+                }
+            } catch let saveError {
+                LogUtils.LogDebug(type: .error, message: "Fail to save on privateManagedObjectContext: \(saveError.localizedDescription)")
+                return
+            }
         }
+        
+//        // ensure there're changes:
+//        guard self.mainManagedObjectContext.hasChanges else {
+//            LogUtils.LogDebug(type: .info, message: "There'is nothing changed")
+//            return
+//        }
+//        // save context:
+//        do {
+//            try self.mainManagedObjectContext.save()
+//            LogUtils.LogDebug(type: .info, message: "=== saveContext!")
+//        } catch {
+//            LogUtils.LogDebug(type: .error, message: error.localizedDescription)
+//            return
+//        }
     }
 
     

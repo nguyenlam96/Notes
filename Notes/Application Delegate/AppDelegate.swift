@@ -17,7 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //    private let coreDataManager = CoreDataManager(modelName: "Notes")
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // create InitialVC:
+//         create InitialVC:
 //        guard let initialVC = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateInitialViewController() as? ViewController else {
 //            fatalError("Unable to Configure Inital View Controller")
 //        }
