@@ -97,11 +97,46 @@ class NoteVC: UIViewController {
     // MARK: - Setup When ViewDidLoad:
     private func fetchNotes() {
 
-        do {
-            try self.fetchedResultsController.performFetch()
-        } catch {
-            LogUtils.LogDebug(type: .error, message: error.localizedDescription)
-            return
+//        do {
+//            try self.fetchedResultsController.performFetch()
+//        } catch {
+//            LogUtils.LogDebug(type: .error, message: error.localizedDescription)
+//            return
+//        }
+        /// faulting:
+        self.persistentContainer.viewContext.perform {
+            
+            do {
+                let fetchRequest: NSFetchRequest<Note> = Note.fetchRequest()
+                let notes = try fetchRequest.execute()
+                if let note = notes.first {
+                    
+                    print(note)
+                    print(note.title)
+                    print(note)
+                    
+                    if let category = note.category {
+                        print(category)
+                        print(category.name)
+                        print(category)
+                    }
+                    
+                    if let tags = note.tags as? Set<Tag> {
+                        print(tags)
+                        for tag in tags {
+                            print(tag.name ?? "noname")
+                        }
+                        
+                    }
+                    
+                }
+                
+
+            } catch {
+                LogUtils.LogDebug(type: .error, message: error.localizedDescription)
+                return
+            }
+            
         }
     }
     
