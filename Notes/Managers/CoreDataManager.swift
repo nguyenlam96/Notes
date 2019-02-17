@@ -77,10 +77,11 @@ final class CoreDataManager {
     
     @objc func saveChanges() {
         
+        // push changes to privateContext:
         self.mainManagedObjectContext.performAndWait {
             do {
                 if self.mainManagedObjectContext.hasChanges {
-                    try self.mainManagedObjectContext.save() /// changes will be pushed to the privateManagedObjectContext ( the parent ), it's sync to ensure that the changes are really pushed to the privateManagedObjectContext
+                    try self.mainManagedObjectContext.save() /// changes will be pushed to the privateManagedObjectContext, it's sync to ensure that the changes are really pushed to the privateManagedObjectContext
                     LogUtils.LogDebug(type: .info, message: "=== pushed change to privateManagedObjectContext!")
                 }
             } catch let saveError {
@@ -88,6 +89,7 @@ final class CoreDataManager {
                 return
             }
         }
+        // save changes:
         self.privateManagedObjectContext.perform {
             do {
                 if self.privateManagedObjectContext.hasChanges {
@@ -100,19 +102,6 @@ final class CoreDataManager {
             }
         }
         
-//        // ensure there're changes:
-//        guard self.mainManagedObjectContext.hasChanges else {
-//            LogUtils.LogDebug(type: .info, message: "There'is nothing changed")
-//            return
-//        }
-//        // save context:
-//        do {
-//            try self.mainManagedObjectContext.save()
-//            LogUtils.LogDebug(type: .info, message: "=== saveContext!")
-//        } catch {
-//            LogUtils.LogDebug(type: .error, message: error.localizedDescription)
-//            return
-//        }
     }
 
     

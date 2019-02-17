@@ -12,6 +12,7 @@
 		05249EB222168D2B005956E9 /* AddTagVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05249EB122168D2B005956E9 /* AddTagVC.swift */; };
 		05249EB422168D36005956E9 /* EditTagVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05249EB322168D36005956E9 /* EditTagVC.swift */; };
 		05249EB622168D9A005956E9 /* TagCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05249EB522168D9A005956E9 /* TagCell.swift */; };
+		05904B74221895B60015C791 /* CustomPersistentContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05904B73221895B60015C791 /* CustomPersistentContainer.swift */; };
 		05DA04982213C3E3004545D6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05DA04972213C3E3004545D6 /* AppDelegate.swift */; };
 		05DA049A2213C3E3004545D6 /* NoteVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05DA04992213C3E3004545D6 /* NoteVC.swift */; };
 		05DA049D2213C3E3004545D6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 05DA049B2213C3E3004545D6 /* Main.storyboard */; };
@@ -61,6 +62,7 @@
 		05249EB122168D2B005956E9 /* AddTagVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTagVC.swift; sourceTree = "<group>"; };
 		05249EB322168D36005956E9 /* EditTagVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTagVC.swift; sourceTree = "<group>"; };
 		05249EB522168D9A005956E9 /* TagCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagCell.swift; sourceTree = "<group>"; };
+		05904B73221895B60015C791 /* CustomPersistentContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPersistentContainer.swift; sourceTree = "<group>"; };
 		05DA04942213C3E3004545D6 /* Notes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Notes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		05DA04972213C3E3004545D6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		05DA04992213C3E3004545D6 /* NoteVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteVC.swift; sourceTree = "<group>"; };
@@ -230,6 +232,7 @@
 			isa = PBXGroup;
 			children = (
 				05DA04CE2213C534004545D6 /* CoreDataManager.swift */,
+				05904B73221895B60015C791 /* CustomPersistentContainer.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -443,6 +446,7 @@
 				05249EB622168D9A005956E9 /* TagCell.swift in Sources */,
 				05DA04DD22140DBB004545D6 /* NoteCell.swift in Sources */,
 				05DA04CF2213C534004545D6 /* CoreDataManager.swift in Sources */,
+				05904B74221895B60015C791 /* CustomPersistentContainer.swift in Sources */,
 				05DA04982213C3E3004545D6 /* AppDelegate.swift in Sources */,
 				05E083922215C89C00391B16 /* Category+.swift in Sources */,
 				05DA04EA22154BB7004545D6 /* AddCategoryVC.swift in Sources */,

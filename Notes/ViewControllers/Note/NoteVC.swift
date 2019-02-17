@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreData
+import NotificationCenter
 
 class NoteVC: UIViewController {
 
@@ -51,6 +52,8 @@ class NoteVC: UIViewController {
         self.tableView.dataSource = self
         
         self.activityIndicatorView.startAnimating()
+        
+        /// load persistentStores in background:
         self.persistentContainer.loadPersistentStores { (persistentStoreDescription, error) in
             if let error = error {
                 LogUtils.LogDebug(type: .error, message: error.localizedDescription)
@@ -67,6 +70,29 @@ class NoteVC: UIViewController {
        
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(saveChanges), name: UIApplication.willTerminateNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(saveChanges), name: UIApplication.didEnterBackgroundNotification, object: nil)
+    }
+    
+    @objc func saveChanges() {
+        
+        if self.persistentContainer.viewContext.hasChanges {
+            do {
+                try persistentContainer.viewContext.save()
+                LogUtils.LogDebug(type: .info, message: "=== viewContext save changes success!")
+            } catch let saveError {
+                LogUtils.LogDebug(type: .error, message: saveError.localizedDescription)
+                return
+            }
+        } else {
+            LogUtils.LogDebug(type: .info, message: "nothing chnages")
+            return
+        }
+
+    }
     
     // MARK: - Setup When ViewDidLoad:
     private func fetchNotes() {
