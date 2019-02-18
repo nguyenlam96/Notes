@@ -211,24 +211,26 @@ extension CategoryVC: NSFetchedResultsControllerDelegate {
             if let index = newIndexPath {
                 self.tableView.insertRows(at: [index], with: .fade)
             }
+            break
         case .delete:
             if let index = indexPath {
                 self.tableView.deleteRows(at: [index], with: .fade)
             }
-        case .update:
-            // have to be newIndexPath so the cell can move/notMove at the proper position
-            if let index = newIndexPath {
-                let updatedCategory = self.fetchedResultsController.object(at: index)
-                let cell = self.tableView.cellForRow(at: index) as? CategoryCell
-                cell?.bindData(category: updatedCategory)
-            }
+            break
         case .move:
-            // have to do this so the editedCell can move up to the top:
             if let sourceIndex = indexPath {
                 self.tableView.deleteRows(at: [sourceIndex], with: .fade)
             }
             if let desIndex = newIndexPath {
                 self.tableView.insertRows(at: [desIndex], with: .fade)
+            }
+            break
+        case .update:
+            // use indexPath for update
+            if let index = indexPath {
+                let updatedCategory = self.fetchedResultsController.object(at: index)
+                let cell = self.tableView.cellForRow(at: index) as? CategoryCell
+                cell?.bindData(category: updatedCategory)
             }
             break
         default:
