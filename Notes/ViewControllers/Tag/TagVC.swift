@@ -54,7 +54,7 @@ class TagVC: UIViewController {
         self.tableView.dataSource = self
         
         self.fetchTags()
-        self.updateTableView()
+        self.updateView()
         self.setupBarButtonItem()
     }
     
@@ -115,7 +115,7 @@ class TagVC: UIViewController {
     }
     
     // MARK: - Helper Functions:
-    private func updateTableView() {
+    private func updateView() {
         self.tableView.isHidden = !hasTag
         self.messageLabel.isHidden = hasTag
     }
@@ -199,7 +199,7 @@ extension TagVC: NSFetchedResultsControllerDelegate {
     
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         self.tableView.endUpdates()
-        self.updateTableView()
+        self.updateView()
     }
     
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {

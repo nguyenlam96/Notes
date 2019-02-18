@@ -51,7 +51,7 @@ class CategoryVC: UIViewController {
         
         self.setupBarButtonItem()
         self.fetchCategory()
-        self.updateTableView()
+        self.updateView()
     }
     
     deinit {
@@ -116,7 +116,7 @@ class CategoryVC: UIViewController {
     }
     
     // MARK: - Helper Functions:
-    private func updateTableView() {
+    private func updateView() {
         
         self.tableView.isHidden = !hasCategory
         self.messageLabel.isHidden = hasCategory
@@ -198,7 +198,7 @@ extension CategoryVC: NSFetchedResultsControllerDelegate {
     
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         self.tableView.endUpdates()
-        self.updateTableView()
+        self.updateView()
     }
     
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {

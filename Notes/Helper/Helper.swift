@@ -13,7 +13,7 @@ public let NOTI_DASHLINE_COLOR_CHANGED = "DASH_LINE_COLOR_CHANGE"
 public func customDateFormatter() -> DateFormatter {
 
     let dateFormatter = DateFormatter()
-    dateFormatter.dateFormat = "MMM d, HH:mm"
-    return dateFormatter
+        dateFormatter.dateFormat = "MMM d, HH:mm"
     
+    return dateFormatter
 }

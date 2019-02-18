@@ -39,7 +39,6 @@ final class CoreDataManager {
         // get URL:
         let documentDirectoryURL = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first
         let persistentStoreURL = documentDirectoryURL?.appendingPathComponent(storeName)
-        
         do {
             let options = [ NSMigratePersistentStoresAutomaticallyOption: true,
                             NSInferMappingModelAutomaticallyOption: true]
